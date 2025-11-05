@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/ThreatIQ/static/css/main.e1d63e92.css",
+    "main.js": "/ThreatIQ/static/js/main.c76bf9c4.js",
+    "static/media/Logo.png": "/ThreatIQ/static/media/Logo.c4033d839b571655fd6e.png",
+    "index.html": "/ThreatIQ/index.html",
+    "main.e1d63e92.css.map": "/ThreatIQ/static/css/main.e1d63e92.css.map",
+    "main.c76bf9c4.js.map": "/ThreatIQ/static/js/main.c76bf9c4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e1d63e92.css",
+    "static/js/main.c76bf9c4.js"
+  ]
+}
