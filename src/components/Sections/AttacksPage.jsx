@@ -11,37 +11,42 @@ import {
 } from 'lucide-react';
 import cyberAttacksData from '../../data/attacksData';
 import '../Style/Attacks.css';
+import { useTranslation } from "react-i18next";
 
 const AttacksPage = () => {
+  const { t, i18n } = useTranslation();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('all');
   const [selectedSeverity, setSelectedSeverity] = useState('all');
   const [expandedCard, setExpandedCard] = useState(null);
 
-  const attackTypes = ['all', 'فيروس', 'برمجية خبيثة', 'دودة كمبيوتر', 'اختراق بيانات', 'هجوم سلسلة التوريد'];
-  const severityLevels = ['all', 'متوسطة', 'عالية', 'عالية جداً'];
+  const attackTypes = ['all'];
+  const severityLevels = ['all'];
 
   const filteredAttacks = cyberAttacksData.filter((attack) => {
     const matchesSearch =
       attack.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      attack.arabicName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      attack.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = selectedType === 'all' || attack.type === selectedType;
-    const matchesSeverity = selectedSeverity === 'all' || attack.severity === selectedSeverity;
+      attack.title[i18n.language].toLowerCase().includes(searchTerm.toLowerCase()) ||
+      attack.description[i18n.language].toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesType =
+      selectedType === 'all' || attack.type[i18n.language] === selectedType;
+
+    const matchesSeverity =
+      selectedSeverity === 'all' || attack.severity[i18n.language] === selectedSeverity;
+
     return matchesSearch && matchesType && matchesSeverity;
   });
 
   const getSeverityClass = (severity) => {
-    switch (severity) {
-      case 'متوسطة':
-        return 'sev-yellow';
-      case 'عالية':
-        return 'sev-orange';
-      case 'عالية جداً':
-        return 'sev-red';
-      default:
-        return 'sev-gray';
-    }
+    const sev = severity[i18n.language];
+
+    if (sev.includes("متوسطة") || sev.includes("Medium")) return 'sev-yellow';
+    if (sev.includes("عالية") || sev.includes("High")) return 'sev-orange';
+    if (sev.includes("جداً") || sev.includes("Critical")) return 'sev-red';
+
+    return 'sev-gray';
   };
 
   const toggleCard = (id) => {
@@ -50,46 +55,24 @@ const AttacksPage = () => {
 
   return (
     <div className="attacks-page">
-      {/* العنوان */}
+
       <section className="attacks-header">
         <AlertTriangle className="header-icon" />
-        <h1>الهجمات السيبرانية</h1>
-        <p>تعرف على أشهر الهجمات السيبرانية في التاريخ وتعلم كيفية الحماية منها</p>
+        <h1>{t("attacks.title")}</h1>
+        <p>{t("attacks.subtitle")}</p>
       </section>
 
-      {/* البحث والتصفية */}
       <section className="filter-box">
         <div className="filter-grid">
+
           <div className="input-group">
             <Search className="input-icon" />
             <input
               type="text"
-              placeholder="ابحث عن هجمة..."
+              placeholder={t("attacks.search_placeholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-          </div>
-
-          <div className="input-group">
-            <Filter className="input-icon" />
-            <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
-              {attackTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type === 'all' ? 'جميع الأنواع' : type}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="input-group">
-            <AlertTriangle className="input-icon" />
-            <select value={selectedSeverity} onChange={(e) => setSelectedSeverity(e.target.value)}>
-              {severityLevels.map((level) => (
-                <option key={level} value={level}>
-                  {level === 'all' ? 'جميع المستويات' : level}
-                </option>
-              ))}
-            </select>
           </div>
 
           <button
@@ -100,83 +83,99 @@ const AttacksPage = () => {
               setSelectedSeverity('all');
             }}
           >
-            إعادة تعيين
+            {t("attacks.reset")}
           </button>
+
         </div>
       </section>
 
-      {/* عدد النتائج */}
       <p className="results-count">
-        عرض {filteredAttacks.length} من أصل {cyberAttacksData.length} هجمة
+        {t("attacks.results", {
+          count: filteredAttacks.length,
+          total: cyberAttacksData.length
+        })}
       </p>
 
-      {/* قائمة الهجمات */}
       <div className="attacks-list">
         {filteredAttacks.map((attack) => (
           <div key={attack.id} className="attack-card">
+
             <div className="card-header">
               <div>
-                <h3>{attack.arabicName}</h3>
+                <h3>{attack.title[i18n.language]}</h3>
                 <span className="eng-name">({attack.name})</span>
+
                 <div className="card-meta">
                   <span>
-                    <Calendar size={14} /> {attack.date}
+                    <Calendar size={14} /> {attack.date[i18n.language]}
                   </span>
-                  <span className="type">{attack.type}</span>
+
+                  <span className="type">
+                    {attack.type[i18n.language]}
+                  </span>
+
                   <span className={`sev-tag ${getSeverityClass(attack.severity)}`}>
-                    {attack.severity}
+                    {attack.severity[i18n.language]}
                   </span>
                 </div>
               </div>
 
-              {/* زر عرض التفاصيل */}
               <button
                 className={`toggle-btn ${expandedCard === attack.id ? 'active' : ''}`}
                 onClick={() => toggleCard(attack.id)}
               >
                 {expandedCard === attack.id ? (
                   <>
-                    <ChevronUp size={16} /> إخفاء التفاصيل
+                    <ChevronUp size={16} /> {t("attacks.hide_details")}
                   </>
                 ) : (
                   <>
-                    <ChevronDown size={16} /> عرض التفاصيل
+                    <ChevronDown size={16} /> {t("attacks.show_details")}
                   </>
                 )}
               </button>
             </div>
 
-            <p className="desc">{attack.description}</p>
+            <p className="desc">
+              {attack.description[i18n.language]}
+            </p>
 
             <div className="meta-grid">
               <div>
-                <strong>الهدف:</strong> {attack.target}
+                <strong>{t("attacks.target")}:</strong>{" "}
+                {attack.target[i18n.language]}
               </div>
+
               <div>
-                <strong>الأضرار:</strong> {attack.damage}
+                <strong>{t("attacks.damage")}:</strong>{" "}
+                {attack.damage[i18n.language]}
               </div>
             </div>
 
             {expandedCard === attack.id && (
               <div className="card-details">
+
                 <div className="detail-box turquoise">
                   <div className="detail-title">
-                    <Shield /> طرق الوقاية
+                    <Shield /> {t("attacks.prevention")}
                   </div>
-                  <p>{attack.prevention}</p>
+                  <p>{attack.prevention[i18n.language]}</p>
                 </div>
+
                 <div className="detail-box blue">
                   <div className="detail-title">
-                    <Eye /> طرق الكشف
+                    <Eye /> {t("attacks.detection")}
                   </div>
-                  <p>{attack.detection}</p>
+                  <p>{attack.detection[i18n.language]}</p>
                 </div>
+
                 <div className="detail-box purple">
                   <div className="detail-title">
-                    <AlertTriangle /> الحلول
+                    <AlertTriangle /> {t("attacks.solutions")}
                   </div>
-                  <p>{attack.solution}</p>
+                  <p>{attack.solution[i18n.language]}</p>
                 </div>
+
               </div>
             )}
           </div>
@@ -186,8 +185,8 @@ const AttacksPage = () => {
       {filteredAttacks.length === 0 && (
         <div className="no-results">
           <AlertTriangle className="no-icon" />
-          <h3>لا توجد نتائج</h3>
-          <p>جرب تغيير معايير البحث أو التصفية</p>
+          <h3>{t("attacks.no_results")}</h3>
+          <p>{t("attacks.no_results_desc")}</p>
         </div>
       )}
     </div>

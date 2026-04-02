@@ -1,58 +1,98 @@
 import { Shield, AlertTriangle, TrendingUp, Users, Lock, Eye } from 'lucide-react';
 import { Button } from '../Button';
 import '../Style/Home.css';
-const HomePage = ({ setActiveSection }) => {
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
+const HomePage = () => {
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+
   const stats = [
-    { icon: AlertTriangle, label: 'هجمات يومية', value: '4,000+', color: 'red' },
-    { icon: TrendingUp, label: 'نمو التهديدات', value: '67%', color: 'orange' },
-    { icon: Users, label: 'ضحايا سنوياً', value: '1.7M', color: 'blue' },
-    { icon: Lock, label: 'تكلفة الاختراق', value: '$4.45M', color: 'green' }
+    {
+      icon: AlertTriangle,
+      value: '4,000+',
+      label: i18n.language === "ar" ? 'هجمات يومية' : 'Daily Attacks',
+      color: 'red'
+    },
+    {
+      icon: TrendingUp,
+      value: '67%',
+      label: i18n.language === "ar" ? 'نمو التهديدات' : 'Threat Growth',
+      color: 'orange'
+    },
+    {
+      icon: Users,
+      value: '1.7M',
+      label: i18n.language === "ar" ? 'ضحايا سنوياً' : 'Yearly Victims',
+      color: 'blue'
+    },
+    {
+      icon: Lock,
+      value: '$4.45M',
+      label: i18n.language === "ar" ? 'تكلفة الاختراق' : 'Breach Cost',
+      color: 'green'
+    }
   ];
 
   const features = [
     {
       icon: Shield,
-      title: 'تعلم الحماية',
-      description: 'اكتشف أحدث طرق الحماية من الهجمات السيبرانية وتعلم كيفية تأمين بياناتك الشخصية والمهنية.',
-      action: () => setActiveSection('prevention')
+      title: i18n.language === "ar" ? 'تعلم الحماية' : 'Learn Protection',
+      description:
+        i18n.language === "ar"
+          ? 'اكتشف أحدث طرق الحماية من الهجمات السيبرانية'
+          : 'Discover modern cybersecurity protection methods',
+      action: () => navigate('/prevention')
     },
     {
       icon: Eye,
-      title: 'فهم التهديدات',
-      description: 'تعرف على أنواع الهجمات السيبرانية المختلفة وكيفية عملها لتكون أكثر وعياً وحذراً.',
-      action: () => setActiveSection('attacks')
+      title: i18n.language === "ar" ? 'فهم التهديدات' : 'Understand Threats',
+      description:
+        i18n.language === "ar"
+          ? 'تعرف على أنواع الهجمات السيبرانية'
+          : 'Learn about different cyber attacks',
+      action: () => navigate('/attacks')
     },
     {
       icon: Lock,
-      title: 'أدوات تفاعلية',
-      description: 'استخدم أدواتنا التفاعلية لفحص قوة كلمات المرور وتقييم مستوى الأمان لديك.',
-      action: () => setActiveSection('tools')
+      title: i18n.language === "ar" ? 'أدوات تفاعلية' : 'Interactive Tools',
+      description:
+        i18n.language === "ar"
+          ? 'استخدم أدوات لفحص الأمان'
+          : 'Use tools to test your security',
+      action: () => navigate('/tools')
     }
   ];
 
   return (
     <div className="home-page">
-      {/* ===== القسم الرئيسي ===== */}
+
+      {/* ===== Hero ===== */}
       <section className="hero">
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <Shield className="hero-icon" />
-          <h1>دليلك الشامل للأمن السيبراني</h1>
-          <p>تعلم كيفية حماية نفسك ومؤسستك من الهجمات الإلكترونية المتزايدة</p>
+
+          <h1>{t("homePage.title")}</h1>
+          <p>{t("homePage.subtitle")}</p>
+
           <div className="hero-buttons">
-            <Button className="btn-primary" onClick={() => setActiveSection('attacks')}>
-              استكشف الهجمات
+            <Button onClick={() => navigate('/attacks')}>
+              {t("homePage.explore_attacks")}
             </Button>
-            <Button className="btn-outline" onClick={() => setActiveSection('prevention')}>
-              تعلم الحماية
+
+            <Button onClick={() => navigate('/prevention')}>
+              {t("homePage.learn_protection")}
             </Button>
           </div>
         </div>
       </section>
 
-      {/* ===== الإحصائيات ===== */}
+      {/* ===== Stats ===== */}
       <section className="stats-section">
-        <h2>إحصائيات الأمن السيبراني</h2>
+        <h2>{t("homePage.stats_title")}</h2>
+
         <div className="stats-grid">
           {stats.map((stat, index) => (
             <div key={index} className="stat-card">
@@ -64,55 +104,61 @@ const HomePage = ({ setActiveSection }) => {
         </div>
       </section>
 
-      {/* ===== الميزات ===== */}
+      {/* ===== Features ===== */}
       <section className="features-section">
-        <h2>ماذا ستتعلم معنا؟</h2>
+        <h2>{t("homePage.features_title")}</h2>
+
         <div className="features-grid">
           {features.map((feature, index) => (
             <div key={index} className="feature-card">
               <feature.icon className="feature-icon" />
               <h3>{feature.title}</h3>
               <p>{feature.description}</p>
-              <Button className="btn-feature" onClick={feature.action}>
-                اكتشف المزيد
+
+              <Button onClick={feature.action}>
+                {t("homePage.discover_more")}
               </Button>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===== تحذير أمني ===== */}
+      {/* ===== Warning ===== */}
       <section className="warning-section">
         <AlertTriangle className="warning-icon" />
-        <h2>هل تعلم؟</h2>
+        <h2>{t("homePage.warning_title")}</h2>
+
         <div className="warning-grid">
           <div className="warning-card">
-            <h3>كل 39 ثانية</h3>
-            <p>يحدث هجوم سيبراني جديد في مكان ما حول العالم</p>
+            <h3>{i18n.language === "ar" ? "كل 39 ثانية" : "Every 39 seconds"}</h3>
+            <p>
+              {i18n.language === "ar"
+                ? "يحدث هجوم سيبراني"
+                : "A cyber attack occurs"}
+            </p>
           </div>
+
           <div className="warning-card">
-            <h3>95% من الاختراقات</h3>
-            <p>تحدث بسبب الأخطاء البشرية وليس الثغرات التقنية</p>
-          </div>
-          <div className="warning-card">
-            <h3>300 مليار دولار</h3>
-            <p>التكلفة السنوية للجرائم السيبرانية عالمياً</p>
-          </div>
-          <div className="warning-card">
-            <h3>280 يوم</h3>
-            <p>متوسط الوقت لاكتشاف الاختراق الأمني</p>
+            <h3>95%</h3>
+            <p>
+              {i18n.language === "ar"
+                ? "بسبب أخطاء بشرية"
+                : "Due to human error"}
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ===== دعوة للعمل ===== */}
+      {/* ===== CTA ===== */}
       <section className="cta-section">
-        <h2>ابدأ رحلتك في الأمن السيبراني اليوم</h2>
-        <p>لا تنتظر حتى تصبح ضحية. تعلم كيفية حماية نفسك الآن</p>
-        <Button className="btn-cta" onClick={() => setActiveSection('prevention')}>
-          ابدأ التعلم الآن
+        <h2>{t("homePage.cta_title")}</h2>
+        <p>{t("homePage.cta_text")}</p>
+
+        <Button onClick={() => navigate('/prevention')}>
+          {t("homePage.cta_button")}
         </Button>
       </section>
+
     </div>
   );
 };

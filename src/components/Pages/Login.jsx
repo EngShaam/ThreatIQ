@@ -3,56 +3,65 @@ import { useNavigate } from 'react-router-dom';
 import '../Style/Login.css';
 import { Button } from '../Button';
 import { useAuth } from '../Context/AuthContext';
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+    const { t } = useTranslation();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { login } = useAuth(); // ربط الـ context
+    const { login } = useAuth();
 
     const handleLogin = (e) => {
         e.preventDefault();
 
-        // التحقق من صحة المدخلات
         if (!email || !password) {
-            setError('يرجى إدخال البريد الإلكتروني وكلمة المرور');
+            setError(t("login.errors.required"));
             return;
         }
 
         if (!email.includes('@')) {
-            setError('يرجى إدخال بريد إلكتروني صالح');
+            setError(t("login.errors.invalid_email"));
             return;
         }
 
         if (password.length < 6) {
-            setError('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+            setError(t("login.errors.password_length"));
             return;
         }
 
-        // تسجيل الدخول
         setError('');
         const userData = { email };
         login(userData);
-        navigate('/'); // توجيه المستخدم بعد تسجيل الدخول
+        navigate('/');
     };
 
     return (
         <div className="login-container">
             <div className="login-card">
-                <h2 className="login-title">تسجيل الدخول</h2>
-                <p className="login-subtitle">مرحباً بعودتك 👋</p>
+
+                <h2 className="login-title">
+                    {t("login.title")}
+                </h2>
+
+                <p className="login-subtitle">
+                    {t("login.subtitle")}
+                </p>
 
                 <form onSubmit={handleLogin}>
+
                     <input
                         type="email"
-                        placeholder="البريد الإلكتروني"
+                        placeholder={t("login.email")}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
+
                     <input
                         type="password"
-                        placeholder="كلمة المرور"
+                        placeholder={t("login.password")}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
@@ -60,18 +69,24 @@ const Login = () => {
                     {error && <p className="error-message">{error}</p>}
 
                     <Button className="btn-primary" type="submit">
-                        تسجيل الدخول
+                        {t("login.button")}
                     </Button>
+
                 </form>
 
                 <div className="login-links">
                     <p>
-                        ليس لديك حساب؟ <a href="/register">سجّل الآن</a>
+                        {t("login.no_account")}{" "}
+                        <a href="/signup">{t("login.signup")}</a>
                     </p>
+
                     <p>
-                        <a href="/forgot-password">نسيت كلمة المرور؟</a>
+                        <a href="/forgot-password">
+                            {t("login.forgot")}
+                        </a>
                     </p>
                 </div>
+
             </div>
         </div>
     );

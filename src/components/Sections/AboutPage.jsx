@@ -1,96 +1,150 @@
 import { Shield, Target, Users, BookOpen, Award, Heart } from 'lucide-react';
 import '../Style/About.css';
+import { useTranslation } from "react-i18next";
 
 const AboutPage = () => {
+  const { t, i18n } = useTranslation();
+
   const teamMembers = [
-    { name: "د. أحمد محمد", role: "خبير الأمن السيبراني", description: "أكثر من 15 عاماً من الخبرة في مجال الأمن السيبراني والحماية الرقمية", icon: Shield },
-    { name: "م. فاطمة علي", role: "مطورة أمان التطبيقات", description: "متخصصة في تطوير التطبيقات الآمنة وفحص الثغرات الأمنية", icon: BookOpen },
-    { name: "د. محمد حسن", role: "باحث في الذكاء الاصطناعي", description: "يركز على استخدام الذكاء الاصطناعي في كشف التهديدات السيبرانية", icon: Award }
+    {
+      name: {
+        ar: "د. أحمد محمد",
+        en: "Dr. Ahmed Mohammed"
+      },
+      role: {
+        ar: "خبير الأمن السيبراني",
+        en: "Cybersecurity Expert"
+      },
+      description: {
+        ar: "أكثر من 15 عاماً من الخبرة",
+        en: "Over 15 years of experience"
+      },
+      icon: Shield
+    }
   ];
 
   const values = [
-    { icon: Shield, title: "الأمان أولاً", description: "نضع الأمان والحماية في مقدمة أولوياتنا في كل ما نقدمه" },
-    { icon: BookOpen, title: "التعليم المستمر", description: "نؤمن بأهمية التعلم المستمر ومواكبة التطورات في مجال الأمن السيبراني" },
-    { icon: Users, title: "المجتمع أولاً", description: "نهدف إلى بناء مجتمع واعٍ ومحمي من التهديدات الرقمية" },
-    { icon: Heart, title: "الشفافية", description: "نقدم معلومات دقيقة وموثوقة بشفافية كاملة" }
+    {
+      icon: Shield,
+      title: {
+        ar: "الأمان أولاً",
+        en: "Security First"
+      },
+      description: {
+        ar: "نضع الأمان في المقدمة",
+        en: "We prioritize security"
+      }
+    },
+    {
+      icon: BookOpen,
+      title: {
+        ar: "التعليم المستمر",
+        en: "Continuous Learning"
+      },
+      description: {
+        ar: "نؤمن بالتعلم المستمر",
+        en: "We believe in continuous learning"
+      }
+    },
+    {
+      icon: Users,
+      title: {
+        ar: "المجتمع أولاً",
+        en: "Community First"
+      },
+      description: {
+        ar: "نبني مجتمع واعي",
+        en: "Building a safe community"
+      }
+    },
+    {
+      icon: Heart,
+      title: {
+        ar: "الشفافية",
+        en: "Transparency"
+      },
+      description: {
+        ar: "نقدم معلومات دقيقة",
+        en: "We provide accurate info"
+      }
+    }
   ];
 
   return (
     <div className="about-page">
-      {/* العنوان الرئيسي */}
+
       <section className="about-header">
         <Shield className="about-icon" />
-        <h1>حول موقع الأمن السيبراني</h1>
-        <p>نحن منصة تعليمية متخصصة في نشر الوعي حول الأمن السيبراني وحماية البيانات الرقمية.</p>
+        <h1>{t("about.title")}</h1>
+        <p>{t("about.subtitle")}</p>
       </section>
 
-      {/* الرسالة */}
       <section className="about-section">
         <Target className="section-icon" />
-        <h2>رسالتنا</h2>
-        <p>
-          في عصر التكنولوجيا الرقمية، أصبحت الحماية من التهديدات السيبرانية ضرورة حتمية لكل فرد ومؤسسة. 
-          نحن نؤمن بأن التعليم والوعي هما أقوى أسلحة الدفاع ضد الهجمات الإلكترونية.
-        </p>
+        <h2>{t("about.mission_title")}</h2>
+        <p>{t("about.mission_text")}</p>
+
         <div className="mission-grid">
           <div className="mission-card blue">
-            <h3>هدفنا</h3>
-            <p>
-              نسعى إلى جعل الأمن السيبراني مفهوماً وقابلاً للتطبيق من قبل الجميع، 
-              من المستخدمين العاديين إلى المتخصصين في التقنية.
-            </p>
+            <h3>{t("about.goal_title")}</h3>
+            <p>{t("about.goal_text")}</p>
           </div>
+
           <div className="mission-card blue1">
-            <h3>رؤيتنا</h3>
-            <p>
-              نتطلع إلى مجتمع رقمي آمن حيث يمتلك كل فرد المعرفة والأدوات اللازمة 
-              لحماية نفسه من التهديدات السيبرانية.
-            </p>
+            <h3>{t("about.vision_title")}</h3>
+            <p>{t("about.vision_text")}</p>
           </div>
         </div>
       </section>
 
-      {/* قيمنا */}
       <section className="values-section">
-        <h2>قيمنا الأساسية</h2>
+        <h2>{t("about.values_title")}</h2>
+
         <div className="values-grid">
           {values.map((v, i) => (
             <div className="value-card" key={i}>
               <v.icon className="value-icon" />
-              <h3>{v.title}</h3>
-              <p>{v.description}</p>
+              <h3>{v.title[i18n.language]}</h3>
+              <p>{v.description[i18n.language]}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* فريق العمل */}
       <section className="team-section">
-        <h2>فريق العمل</h2>
-        <p>فريقنا مكون من خبراء متخصصين في الأمن السيبراني يعملون بشغف لتقديم أفضل المحتوى التعليمي.</p>
+        <h2>{t("about.team_title")}</h2>
+        <p>{t("about.team_desc")}</p>
+
         <div className="team-grid">
           {teamMembers.map((m, i) => (
             <div className="team-card" key={i}>
               <div className="team-avatar">
                 <m.icon className="avatar-icon" />
               </div>
-              <h3>{m.name}</h3>
-              <span>{m.role}</span>
-              <p>{m.description}</p>
+
+              <h3>{m.name[i18n.language]}</h3>
+              <span>{m.role[i18n.language]}</span>
+              <p>{m.description[i18n.language]}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* الدعوة للتواصل */}
       <section className="cta-section">
-        <h2>انضم إلى مجتمعنا</h2>
-        <p>كن جزءاً من مجتمع الأمن السيبراني وساهم في نشر الوعي الأمني.</p>
+        <h2>{t("about.cta_title")}</h2>
+        <p>{t("about.cta_text")}</p>
+
         <div className="cta-buttons">
-          <button className="btn-primary">تواصل معنا</button>
-          <button className="btn-outline">اشترك في النشرة</button>
+          <button className="btn-primary">
+            {t("about.contact")}
+          </button>
+
+          <button className="btn-outline">
+            {t("about.subscribe")}
+          </button>
         </div>
       </section>
+
     </div>
   );
 };

@@ -1,96 +1,159 @@
-// بيانات طرق الوقاية من الهجمات السيبرانية
+// بيانات طرق الوقاية (متعددة اللغات)
 const preventionData = [
   {
     id: 1,
-    title: "كلمات المرور القوية",
-    category: "أساسيات الأمان",
-    description: "استخدام كلمات مرور قوية ومعقدة لحماية الحسابات",
+
+    title: {
+      ar: "كلمات المرور القوية",
+      en: "Strong Passwords"
+    },
+
+    category: {
+      ar: "أساسيات الأمان",
+      en: "Security Basics"
+    },
+
+    description: {
+      ar: "استخدام كلمات مرور قوية ومعقدة لحماية الحسابات",
+      en: "Use strong and complex passwords to protect accounts"
+    },
+
     tips: [
-      "استخدم كلمات مرور بطول 12 حرف على الأقل",
-      "امزج بين الأحرف الكبيرة والصغيرة والأرقام والرموز",
-      "تجنب استخدام معلومات شخصية في كلمة المرور",
-      "استخدم كلمة مرور مختلفة لكل حساب",
-      "استخدم مدير كلمات المرور"
+      {
+        ar: "استخدم كلمات مرور بطول 12 حرف على الأقل",
+        en: "Use passwords with at least 12 characters"
+      },
+      {
+        ar: "امزج بين الأحرف الكبيرة والصغيرة والأرقام والرموز",
+        en: "Mix uppercase, lowercase, numbers, and symbols"
+      },
+      {
+        ar: "تجنب استخدام معلومات شخصية",
+        en: "Avoid using personal information"
+      },
+      {
+        ar: "استخدم كلمة مختلفة لكل حساب",
+        en: "Use different passwords for each account"
+      },
+      {
+        ar: "استخدم مدير كلمات المرور",
+        en: "Use a password manager"
+      }
     ],
-    importance: "عالية",
-    difficulty: "سهل"
+
+    importance: { ar: "عالية", en: "High" },
+    difficulty: { ar: "سهل", en: "Easy" }
   },
+
   {
     id: 2,
-    title: "التحديثات الأمنية",
-    category: "صيانة النظام",
-    description: "الحفاظ على تحديث البرمجيات وأنظمة التشغيل",
+
+    title: { ar: "التحديثات الأمنية", en: "Security Updates" },
+    category: { ar: "صيانة النظام", en: "System Maintenance" },
+    description: {
+      ar: "الحفاظ على تحديث البرمجيات وأنظمة التشغيل",
+      en: "Keep software and systems updated"
+    },
+
     tips: [
-      "فعّل التحديثات التلقائية لنظام التشغيل",
-      "حدّث المتصفحات والتطبيقات بانتظام",
-      "حدّث برامج مكافحة الفيروسات",
-      "راجع التحديثات الأمنية شهرياً",
-      "احذف البرامج غير المستخدمة"
+      { ar: "فعّل التحديثات التلقائية", en: "Enable automatic updates" },
+      { ar: "حدّث التطبيقات بانتظام", en: "Update apps regularly" },
+      { ar: "حدّث مضاد الفيروسات", en: "Update antivirus software" },
+      { ar: "راجع التحديثات شهرياً", en: "Check updates monthly" },
+      { ar: "احذف البرامج غير المستخدمة", en: "Remove unused software" }
     ],
-    importance: "عالية جداً",
-    difficulty: "سهل"
+
+    importance: { ar: "عالية جداً", en: "Critical" },
+    difficulty: { ar: "سهل", en: "Easy" }
   },
+
   {
     id: 3,
-    title: "النسخ الاحتياطية",
-    category: "حماية البيانات",
-    description: "إنشاء نسخ احتياطية منتظمة للبيانات المهمة",
+
+    title: { ar: "النسخ الاحتياطية", en: "Backups" },
+    category: { ar: "حماية البيانات", en: "Data Protection" },
+    description: {
+      ar: "إنشاء نسخ احتياطية منتظمة للبيانات",
+      en: "Create regular backups of important data"
+    },
+
     tips: [
-      "اتبع قاعدة 3-2-1: 3 نسخ، وسطان مختلفان، نسخة خارجية",
-      "اختبر النسخ الاحتياطية بانتظام",
-      "استخدم التشفير للنسخ الاحتياطية",
-      "احفظ نسخة في مكان منفصل جغرافياً",
-      "جدول النسخ الاحتياطية التلقائية"
+      { ar: "اتبع قاعدة 3-2-1", en: "Follow the 3-2-1 backup rule" },
+      { ar: "اختبر النسخ الاحتياطية", en: "Test backups regularly" },
+      { ar: "استخدم التشفير", en: "Use encryption" },
+      { ar: "احفظ نسخة خارجية", en: "Store offsite backup" },
+      { ar: "جدول النسخ التلقائي", en: "Schedule automatic backups" }
     ],
-    importance: "عالية",
-    difficulty: "متوسط"
+
+    importance: { ar: "عالية", en: "High" },
+    difficulty: { ar: "متوسط", en: "Medium" }
   },
+
   {
     id: 4,
-    title: "التصفح الآمن",
-    category: "الاستخدام اليومي",
-    description: "ممارسات آمنة أثناء تصفح الإنترنت",
+
+    title: { ar: "التصفح الآمن", en: "Safe Browsing" },
+    category: { ar: "الاستخدام اليومي", en: "Daily Usage" },
+    description: {
+      ar: "ممارسات آمنة أثناء التصفح",
+      en: "Safe practices while browsing the internet"
+    },
+
     tips: [
-      "تحقق من صحة المواقع قبل إدخال معلومات حساسة",
-      "ابحث عن رمز القفل (HTTPS) في شريط العناوين",
-      "تجنب النقر على الروابط المشبوهة",
-      "استخدم متصفحاً محدثاً مع إعدادات أمان قوية",
-      "فعّل حاجب الإعلانات والنوافذ المنبثقة"
+      { ar: "تحقق من المواقع", en: "Verify websites" },
+      { ar: "استخدم HTTPS", en: "Use HTTPS websites" },
+      { ar: "تجنب الروابط المشبوهة", en: "Avoid suspicious links" },
+      { ar: "استخدم متصفح آمن", en: "Use secure browser" },
+      { ar: "فعّل مانع الإعلانات", en: "Enable ad blocker" }
     ],
-    importance: "عالية",
-    difficulty: "سهل"
+
+    importance: { ar: "عالية", en: "High" },
+    difficulty: { ar: "سهل", en: "Easy" }
   },
+
   {
     id: 5,
-    title: "أمان الشبكة",
-    category: "الشبكات",
-    description: "حماية الاتصالات والشبكات المنزلية والمكتبية",
+
+    title: { ar: "أمان الشبكة", en: "Network Security" },
+    category: { ar: "الشبكات", en: "Networking" },
+    description: {
+      ar: "حماية الشبكات والاتصالات",
+      en: "Secure networks and connections"
+    },
+
     tips: [
-      "استخدم تشفير WPA3 للشبكة اللاسلكية",
-      "غيّر كلمة مرور الراوتر الافتراضية",
-      "فعّل جدار الحماية",
-      "تجنب الشبكات العامة للمعاملات الحساسة",
-      "استخدم VPN عند الضرورة"
+      { ar: "استخدم WPA3", en: "Use WPA3 encryption" },
+      { ar: "غيّر كلمة الراوتر", en: "Change router password" },
+      { ar: "فعّل الجدار الناري", en: "Enable firewall" },
+      { ar: "تجنب الشبكات العامة", en: "Avoid public networks" },
+      { ar: "استخدم VPN", en: "Use VPN when needed" }
     ],
-    importance: "عالية",
-    difficulty: "متوسط"
+
+    importance: { ar: "عالية", en: "High" },
+    difficulty: { ar: "متوسط", en: "Medium" }
   },
+
   {
     id: 6,
-    title: "التوعية بالتصيد",
-    category: "الهندسة الاجتماعية",
-    description: "التعرف على محاولات التصيد وتجنبها",
+
+    title: { ar: "التوعية بالتصيد", en: "Phishing Awareness" },
+    category: { ar: "الهندسة الاجتماعية", en: "Social Engineering" },
+    description: {
+      ar: "التعرف على هجمات التصيد",
+      en: "Identify phishing attempts"
+    },
+
     tips: [
-      "تحقق من عنوان المرسل بعناية",
-      "لا تنقر على الروابط المشبوهة في الرسائل",
-      "تحقق من صحة الطلبات عبر قناة اتصال منفصلة",
-      "كن حذراً من الرسائل العاجلة أو المخيفة",
-      "تعلم علامات رسائل التصيد الشائعة"
+      { ar: "تحقق من المرسل", en: "Verify sender" },
+      { ar: "لا تنقر روابط مشبوهة", en: "Avoid suspicious links" },
+      { ar: "تحقق من الطلبات", en: "Verify requests" },
+      { ar: "احذر الرسائل العاجلة", en: "Beware urgent messages" },
+      { ar: "تعلم علامات التصيد", en: "Learn phishing signs" }
     ],
-    importance: "عالية جداً",
-    difficulty: "متوسط"
+
+    importance: { ar: "عالية جداً", en: "Critical" },
+    difficulty: { ar: "متوسط", en: "Medium" }
   }
 ];
 
 export default preventionData;
-

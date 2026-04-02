@@ -257,3 +257,49 @@
     color: #1e3a8a;
   }
 }
+
+
+
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 8px;
+}
+
+.lang-switcher button {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.lang-switcher button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Active */
+.lang-switcher button.active {
+  background: #38bdf8;
+  color: #fff;
+  border-color: #38bdf8;
+}
+
+@media (max-width: 768px) {
+  .lang-switcher {
+    width: 80%;
+    justify-content: center;
+    margin: 0.5rem 0;
+  }
+
+  .lang-switcher button {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+  }
+}
